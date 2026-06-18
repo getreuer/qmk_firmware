@@ -101,6 +101,7 @@ subcommands = [
     'qmk.cli.list.keyboards',
     'qmk.cli.list.keymaps',
     'qmk.cli.list.layouts',
+    'qmk.cli.lookup_keycode',
     'qmk.cli.mass_compile',
     'qmk.cli.migrate',
     'qmk.cli.new.keyboard',

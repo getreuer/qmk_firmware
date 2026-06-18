@@ -406,3 +406,14 @@ def test_find_multiple_conditions():
     assert len(ws2812_pin_values) > 0
     for s in ws2812_pin_values:
         assert '=D3' in s
+
+
+def test_lookup_keycode():
+    result = check_subcommand('lookup-keycode', 'KC_A')
+    check_returncode(result)
+    assert 'KC_A = 0x0004' in result.stdout
+
+    result = check_subcommand('lookup-keycode', '0x0005')
+    check_returncode(result)
+    assert 'KC_B = 0x0005' in result.stdout
+

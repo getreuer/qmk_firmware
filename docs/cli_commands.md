@@ -413,6 +413,54 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 qmk list-keymaps -kb planck/ez
 ```
 
+## `qmk lookup-keycode`
+
+**Keycode name to numeric value:** Given one or more keycode names or expressions (e.g. `KC_A`, `LSFT(KC_1)`), this tool prints their numeric values. This is done by generating and compiling a small C program against QMK's headers.
+
+Example:
+
+```
+qmk lookup-keycode KC_Q KC_M KC_K
+```
+
+Output:
+
+```
+KC_Q = 0x0014
+KC_M = 0x0010
+KC_K = 0x000E
+```
+
+To look up keycodes defined by community modules, specify the keyboard and keymap so the tool knows which modules are enabled:
+
+```
+qmk lookup-keycode -kb <keyboard> -km <keymap> <keycode_name>
+```
+
+If you have additional header files defining custom keycodes, include them using the `-H` option:
+
+```
+qmk lookup-keycode -kb <keyboard> -km <keymap> -H <extra_header> <keycode>
+```
+
+Unrecognized names result in compiler errors (e.g., "`error: 'SOME_KEY' undeclared`").
+
+**Keycode numeric value to name:** Conversely, given a numeric keycode (e.g. `0x0004`, `0x0119`), if recognized, the tool converts it to a string representation. This direction of conversion is more limited, done through [Keycode String](unit_testing#keycode-string), which recognizes many common QMK keycodes, but not all.
+
+Example:
+
+```
+qmk lookup-keycode 0x0119
+```
+
+Output:
+
+```
+C(KC_V) = 0x0119
+```
+
+Unrecognized values appear with the numeric representation on both sides, like `"0xBEEF = 0xBEEF"`.
+
 ## `qmk migrate`
 
 This command searches for legacy code that can be converted to the new `info.json` format and adds it to the specified keyboard's `info.json`.
